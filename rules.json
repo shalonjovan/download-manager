@@ -1,0 +1,22 @@
+{
+    "rules": [
+        {
+            "name": "CTF related files from picoCTF and CTFlearn",
+            "conditions": {
+                "domains": [
+                    "picoctf.org",
+                    "ctflearn.com"
+                ]
+            }
+        },
+        {
+            "name": "videos",
+            "conditions": {
+                "extensions": ["mp4", "mov", "wmv", "flv", "avi", "mkv"]
+            }
+        }
+    ],
+    "default": {
+        "path": "/Downloads"
+    }
+}
