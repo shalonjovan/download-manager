@@ -13,6 +13,10 @@ browser.downloads.onCreated.addListener(async (download) => {
     // if(isRe){
     //     return;
     // }
+    if(download.url.startsWith("blob:")){
+      return;
+    }
+
     if(reDownloads.has(download.id)){
       reDownloads.delete(download.id);
       return;
