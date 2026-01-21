@@ -6,8 +6,8 @@
                 "domains": [
                     "picoctf.org",
                     "ctflearn.com"
-                ],
-                "extensions":["exe"]
+                ]
+                // "extensions":["exe"]
             },
             "path":"CTF"
         },
