@@ -1,7 +1,9 @@
 console.log("loaded")
 // import rulesConf from "./rules.json"
+const EXT_ID = browser.runtime.id;
 
 let rulesConf=null;
+
 async function loadRules(){
   try{
     let url =browser.runtime.getURL("./rules.json");
@@ -18,7 +20,7 @@ loadRules();
 
 // let isRe=false;
 let test =5;
-const reDownloads=new Set();
+// const reDownloads=new Set();
 
 function getFileInfo(path){
   let parts =path.split("/");
@@ -52,6 +54,11 @@ function getDomain(url){
 // }
 
 function getPath(download){
+
+  if(!rulesConf){
+    return download.filename;
+  }
+
   let {filename,ext}=getFileInfo(download.filename);
   let domain=getDomain(download.url);
 
@@ -92,16 +99,22 @@ browser.downloads.onCreated.addListener(async (download) => {
     // if(isRe){
     //     return;
     // }
+    // let uid = crypto.randomUUID();
+
     if(download.url.startsWith("blob:")){
       return;
     }
 
-    if(reDownloads.has(download.id)){
-      reDownloads.delete(download.id);
+    // if(reDownloads.has(download.id)){
+    //   reDownloads.delete(download.id);
+    //   return;
+    // }
+
+    if(download.byExtensionId === EXT_ID){
+      console.log("download stopping skipped for:",download);
       return;
     }
 
-    console.log("download stopped:",download);
 
     try{
       await browser.downloads.cancel(download.id);
@@ -116,7 +129,7 @@ browser.downloads.onCreated.addListener(async (download) => {
         saveAs: false,
       });
 
-      reDownloads.add(newid);
+      // reDownloads.add(download.cookieStoreId);
 
       console.log("re download started baby");
     }catch(e){
@@ -124,8 +137,8 @@ browser.downloads.onCreated.addListener(async (download) => {
     }
 });
 
-browser.downloads.onChanged.addListener(delta => {
-  if(delta.state && (delta.state.current === "complete" || delta.state.current === "interrupted")){
-    reDownloads.delete(delta.id);
-  }
-});
+// browser.downloads.onChanged.addListener(delta => {
+//   if(delta.state && (delta.state.current === "complete" || delta.state.current === "interrupted")){
+//     reDownloads.delete(delta.id);
+//   }
+// });

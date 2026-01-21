@@ -13,13 +13,13 @@
         {
             "name": "videos",
             "conditions": {
-                "extensions": ["mp4", "mov", "wmv", "flv", "avi", "mkv"]
+                "extensions": ["jpg","mp4", "mov", "wmv", "flv", "avi", "mkv"]
             },
             "path":"Videos"
         }
     ],
     "default": {
-        "path": "/Downloads"
+        "path": "Downloads"
     }
 }
 
