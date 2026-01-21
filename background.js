@@ -1,12 +1,71 @@
 // let isRe=false;
+import rulesConf from "./rules.json"
 
 const reDownloads=new Set();
 
-function getPath(oldpath){
-  let parts =oldpath.split("/");
+function getFileInfo(path){
+  let parts =path.split("/");
   let filename =parts.pop();
-  let newpath="ReDownloads/"+filename;
-  return newpath;
+  
+  let d_index=filename.lastIndexOf(".");
+
+  let ext=""
+
+  if(d_index!==-1){
+    ext =filename.slice(d_index+1)
+  }else{
+    ext =""
+  }
+  return {filename,ext}
+}
+
+function getDomain(url){
+  try{
+    return new URL(url).hostname;
+  }catch{
+    return "";
+  }
+}
+
+// function getPath(download){
+//   let parts =download.filename.split("/");
+//   let filename =parts.pop();
+//   let newpath="ReDownloads/"+filename;
+//   return newpath;
+// }
+
+function getPath(download){
+  let {filename,ext}=getFileInfo(download.filename);
+  let domain=getDomain(download.url);
+
+  let flag1,flag2=true;
+
+  for (const rule of rulesConf.rules){
+    const conditions =rule.conditions
+
+    if(conditions.domains && domain ){
+      if(conditions.domains.some(d => domain.endsWith(d))){
+        flag1=true;
+      }else{
+        flag1=false;
+      }
+    }
+    
+    if(conditions.extensions && ext ){
+      if(conditions.extensions.includes(ext)){
+        flag2=true;
+      }else{
+        flag2=false;
+      }
+    }
+
+    if(flag1 && flag2){
+      return conditions.path;
+    }
+
+  }
+  return rulesConf.default.path;
+  
 }
 
 browser.downloads.onCreated.addListener(async (download) => {
@@ -32,7 +91,7 @@ browser.downloads.onCreated.addListener(async (download) => {
 
       let newid =await browser.downloads.download({
         url: download.url,
-        filename: getPath(download.filename),
+        filename: getPath(download),
         conflictAction: "uniquify",
         saveAs: false,
       });

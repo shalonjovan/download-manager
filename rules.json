@@ -6,17 +6,21 @@
                 "domains": [
                     "picoctf.org",
                     "ctflearn.com"
-                ]
+                ],
+                "extensions":["exe"],
+                "path":"/Downloads/CTF"
             }
         },
         {
             "name": "videos",
             "conditions": {
                 "extensions": ["mp4", "mov", "wmv", "flv", "avi", "mkv"]
-            }
+            },
+            "path":"/Downloads/Videos"
         }
     ],
     "default": {
         "path": "/Downloads"
     }
 }
+
