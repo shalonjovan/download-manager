@@ -1,6 +1,23 @@
-// let isRe=false;
-import rulesConf from "./rules.json"
+console.log("loaded")
+// import rulesConf from "./rules.json"
 
+let rulesConf=null;
+async function loadRules(){
+  try{
+    let url =browser.runtime.getURL("./rules.json");
+    let res=await fetch(url);
+    rulesConf=await res.json();
+    console.log("impoted");
+  }catch(e){
+    console.log("didnt work",e);
+  }
+}
+
+loadRules();
+// console.log("imported")
+
+// let isRe=false;
+let test =5;
 const reDownloads=new Set();
 
 function getFileInfo(path){
@@ -67,6 +84,7 @@ function getPath(download){
 
   }
   return rulesConf.default.path+"/"+filename;
+  // return "hello/"+filename;
   
 }
 
