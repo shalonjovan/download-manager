@@ -7,16 +7,16 @@
                     "picoctf.org",
                     "ctflearn.com"
                 ],
-                "extensions":["exe"],
-                "path":"/Downloads/CTF"
-            }
+                "extensions":["exe"]
+            },
+            "path":"CTF"
         },
         {
             "name": "videos",
             "conditions": {
                 "extensions": ["mp4", "mov", "wmv", "flv", "avi", "mkv"]
             },
-            "path":"/Downloads/Videos"
+            "path":"Videos"
         }
     ],
     "default": {

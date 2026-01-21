@@ -12,7 +12,7 @@ function getFileInfo(path){
   let ext=""
 
   if(d_index!==-1){
-    ext =filename.slice(d_index+1)
+    ext =filename.slice(d_index+1).toLowerCase();
   }else{
     ext =""
   }
@@ -38,9 +38,11 @@ function getPath(download){
   let {filename,ext}=getFileInfo(download.filename);
   let domain=getDomain(download.url);
 
-  let flag1,flag2=true;
-
   for (const rule of rulesConf.rules){
+
+    let flag1=true;
+    let flag2=true;
+
     const conditions =rule.conditions
 
     if(conditions.domains && domain ){
@@ -60,11 +62,11 @@ function getPath(download){
     }
 
     if(flag1 && flag2){
-      return conditions.path;
+      return rule.path+"/"+filename;
     }
 
   }
-  return rulesConf.default.path;
+  return rulesConf.default.path+"/"+filename;
   
 }
 
