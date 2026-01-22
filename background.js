@@ -1,5 +1,4 @@
 console.log("script started");
-// import rulesConf from "./rules.json"
 const EXT_ID = browser.runtime.id;
 
 let rulesConf=null;
@@ -24,24 +23,7 @@ async function initRules() {
   console.log("Active rules:", rulesConf);
 }
 
-// async function loadRules(){
-//   try{
-//     let url =browser.runtime.getURL("./rules.json");
-//     let res=await fetch(url);
-//     rulesConf=await res.json();
-//     console.log("impoted");
-//   }catch(e){
-//     console.log("didnt work",e);
-//   }
-// }
-
-// loadRules();
 initRules();
-// console.log("imported")
-
-// let isRe=false;
-let test =5;
-// const reDownloads=new Set();
 
 function getFileInfo(path){
   let parts =path.split("/");
@@ -66,13 +48,6 @@ function getDomain(url){
     return "";
   }
 }
-
-// function getPath(download){
-//   let parts =download.filename.split("/");
-//   let filename =parts.pop();
-//   let newpath="ReDownloads/"+filename;
-//   return newpath;
-// }
 
 function getPath(download){
 
@@ -113,24 +88,13 @@ function getPath(download){
 
   }
   return rulesConf.default.path+"/"+filename;
-  // return "hello/"+filename;
-  
 }
 
 browser.downloads.onCreated.addListener(async (download) => {
-    // if(isRe){
-    //     return;
-    // }
-    // let uid = crypto.randomUUID();
-
+   
     if(download.url.startsWith("blob:")){
       return;
     }
-
-    // if(reDownloads.has(download.id)){
-    //   reDownloads.delete(download.id);
-    //   return;
-    // }
 
     if(download.byExtensionId === EXT_ID){
       console.log("download stopping skipped for:",download);
@@ -142,16 +106,12 @@ browser.downloads.onCreated.addListener(async (download) => {
       await browser.downloads.cancel(download.id);
       await browser.downloads.erase({id: download.id});
 
-      // isRe=true;
-
       let newid =await browser.downloads.download({
         url: download.url,
         filename: getPath(download),
         conflictAction: "uniquify",
         saveAs: false,
       });
-
-      // reDownloads.add(download.cookieStoreId);
 
       console.log("re download started baby");
     }catch(e){
@@ -167,9 +127,3 @@ browser.storage.onChanged.addListener((changes,area)=>{
   }
  
 });
-
-// browser.downloads.onChanged.addListener(delta => {
-//   if(delta.state && (delta.state.current === "complete" || delta.state.current === "interrupted")){
-//     reDownloads.delete(delta.id);
-//   }
-// });
