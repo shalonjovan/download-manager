@@ -1,0 +1,97 @@
+:root {
+  --bg: #ffffff;
+  --text: #000000;
+  --border: #dddddd;
+  --hover: #eeeeee;
+  --input-bg: #ffffff;
+}
+
+body.dark {
+  --bg: #121212;
+  --text: #eaeaea;
+  --border: #333333;
+  --hover: #1f1f1f;
+  --input-bg: #1a1a1a;
+}
+
+body {
+  font-family: sans-serif;
+  width: 260px;
+  padding: 10px;
+  background: var(--bg);
+  color: var(--text);
+}
+
+input:not([type="checkbox"]) {
+  width: 100%;
+  margin-bottom: 6px;
+  padding: 6px;
+  background: var(--input-bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  box-sizing: border-box;
+}
+
+button {
+  width: 100%;
+  padding: 6px;
+  cursor: pointer;
+  background: var(--input-bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+button#save {
+  font-weight: bold;
+}
+
+button#delete {
+  margin-top: 4px;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  list-style: none;
+  padding: 6px;
+  cursor: pointer;
+}
+
+li:hover {
+  background: var(--hover);
+}
+
+hr {
+  margin: 10px 0;
+  border: none;
+  border-top: 1px solid var(--border);
+}
+
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 8px 0 4px;
+}
+
+.theme-toggle input[type="checkbox"] {
+  width: auto;
+  padding: 0;
+  margin: 0;
+  display: block;
+  flex-shrink: 0;
+}
+
+.theme-toggle label {
+  margin: 0;
+  line-height: 1;
+}
+
+#status {
+  font-size: 12px;
+  margin-top: 6px;
+  color: var(--text);
+}
