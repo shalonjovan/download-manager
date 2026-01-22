@@ -1,21 +1,42 @@
-console.log("loaded")
+console.log("script started");
 // import rulesConf from "./rules.json"
 const EXT_ID = browser.runtime.id;
 
 let rulesConf=null;
 
-async function loadRules(){
-  try{
+async function initRules() {
+  const stored = await browser.storage.local.get("rules");
+
+  if(!stored.rules){
+    console.log("first time init");
     let url =browser.runtime.getURL("./rules.json");
-    let res=await fetch(url);
-    rulesConf=await res.json();
-    console.log("impoted");
-  }catch(e){
-    console.log("didnt work",e);
+    let res= await fetch(url);
+    let defaults=await res.json();
+
+    await browser.storage.local.set({
+      rules:defaults
+    });
+    
+  }else{
+    rulesConf=stored.rules;
+    console.log("loaded rules");
   }
+  console.log("Active rules:", rulesConf);
 }
 
-loadRules();
+// async function loadRules(){
+//   try{
+//     let url =browser.runtime.getURL("./rules.json");
+//     let res=await fetch(url);
+//     rulesConf=await res.json();
+//     console.log("impoted");
+//   }catch(e){
+//     console.log("didnt work",e);
+//   }
+// }
+
+// loadRules();
+initRules();
 // console.log("imported")
 
 // let isRe=false;
@@ -56,6 +77,7 @@ function getDomain(url){
 function getPath(download){
 
   if(!rulesConf){
+    console.warn("no rules yet")
     return download.filename;
   }
 
@@ -135,6 +157,15 @@ browser.downloads.onCreated.addListener(async (download) => {
     }catch(e){
       console.error("error in re download",e);
     }
+});
+
+browser.storage.onChanged.addListener((changes,area)=>{
+  if (area==="local" && changes.rules){
+    rulesConf=changes.rules.newValue;
+    console.log("updated rules");
+     console.log("Active rules:", rulesConf);
+  }
+ 
 });
 
 // browser.downloads.onChanged.addListener(delta => {
