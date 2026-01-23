@@ -1,7 +1,8 @@
 {
     "rules": [
         {
-            "name": "CTF related files from picoCTF and CTFlearn",
+            "name": "CTF stuff",
+            "id":1,
             "conditions": {
                 "domains": [
                     "picoctf.org",
@@ -12,6 +13,7 @@
         },
         {
             "name": "videos",
+            "id":2,
             "conditions": {
                 "extensions": ["jpg","mp4", "mov", "wmv", "flv", "avi", "mkv"]
             },

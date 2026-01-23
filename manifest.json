@@ -5,7 +5,7 @@
     "description": "this is a download ext",
 
     "permissions": [
-        "downloads","storage"
+        "downloads","storage","tabs"
     ],
 
     "background": {
@@ -13,5 +13,14 @@
     },
     "action":{
         "default_popup":"popup.html"
+    },
+    "commands": {
+    "_execute_action": {
+        "suggested_key": {
+        "default": "Ctrl+Shift+Q"
+        },
+        "description": "Open popup"
     }
+    }
+
 }
