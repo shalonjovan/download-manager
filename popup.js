@@ -51,6 +51,10 @@ function renderList(filter = "") {
 
   if (!rulesData) return;
 
+   if (!filter.trim()) {
+    return;
+  }
+  
   const q = filter.toLowerCase();
 
   for (const rule of rulesData.rules) {
