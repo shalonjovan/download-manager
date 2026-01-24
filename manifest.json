@@ -1,12 +1,21 @@
 {
     "manifest_version": 3,
-    "name": "download",
+    "name": "download-mangaer",
     "version": "1.0",
-    "description": "this is a download ext",
+    "description": "This is a download-manager extension",
 
     "permissions": [
         "downloads","storage","tabs"
     ],
+
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "download-manger@local.dev",
+            "data_collection_permissions": {
+                "required": ["none"]
+            }
+        }
+    },
 
     "background": {
         "scripts":["background.js"]
