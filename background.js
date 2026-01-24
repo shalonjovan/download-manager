@@ -67,7 +67,7 @@ function getPath(download){
     const conditions =rule.conditions
 
     if(conditions.domains && domain ){
-      if(conditions.domains.some(d => domain.endsWith(d))){
+      if(conditions.domains.some(d => domain.includes(d))){
         flag1=true;
       }else{
         flag1=false;
@@ -126,10 +126,4 @@ browser.storage.onChanged.addListener((changes,area)=>{
      console.log("Active rules:", rulesConf);
   }
  
-});
-
-browser.commands.onCommand.addListener((command) => {
-  if (command === "open-search") {
-    browser.browserAction.openPopup();
-  }
 });
