@@ -28,6 +28,9 @@ Rules consist of:
 
 If no rule matches, a default folder is used.
 
+## Note
+- use / as base and theen set the path for easy access
+
 ## Customization
 
 - Click the extension icon to open the popup.
