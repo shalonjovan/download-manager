@@ -30,6 +30,7 @@ If no rule matches, a default folder is used.
 
 ## Note
 - use / as base and theen set the path for easy access
+- for now only available for firefox and is hoping to add it to other browsers.
 
 ## Customization
 
